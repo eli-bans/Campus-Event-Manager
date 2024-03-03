@@ -1,55 +1,54 @@
-# [Tailwind Toolbox](https://www.tailwindtoolbox.com/) - [Landing Page Template](https://www.tailwindtoolbox.com/templates/landing-page)
+# Campus Event Manager
 
-[Landing Page](https://www.tailwindtoolbox.com/templates/landing-page) is an open source, generic landing page template for [Tailwind CSS](https://tailwindcss.com/) created by [Tailwind Toolbox](https://www.tailwindtoolbox.com/).
+**Description:**
+Campus Event Manager is a simple page designed to manage and promote events within a campus community. The landing page provides information about upcoming events, allows users to RSVP for events,create events, search for events and enables them to give feedback on attended events.
 
-![Landing Page](https://www.tailwindtoolbox.com/templates/landing-page.png)
+## Features:
 
+1. **Navigation:**
+   - The navigation bar allows users to easily access different sections of the landing page.
+   - It includes links to the "Events" section and an "About" page.
+   - Users can also perform a search for events using the search input field.
 
-## Getting Started
+2. **Upcoming Events:**
+   - The landing page displays upcoming events, each with a brief description and an option to RSVP.
 
-Choose one of the following options to get started:
-* [Download the latest release](https://github.com/tailwindtoolbox/Landing-Page/archive/master.zip)
-* Clone the repo: `git clone https://github.com/tailwindtoolbox/Landing-Page.git`
-* Fork the repo
+3. **Attended Events:**
+   - Users can view a list of attended events categorized by type (Cultural, Social, Academic).
+   - Each event card includes information about the event and a button to give feedback.
 
-## Using the Template
+4. **Event Creation:**
+   - Users can create new events by clicking on the "Create Event" button.
 
-The template is just a HTML file using a full CDN hosted Tailwind CSS file.
+5. **Feedback Submission:**
+   - Users can provide feedback on attended events by clicking on the "Give Feedback" button associated with each event.
 
-To get the best out of Tailwind CSS, you need to really start customising it.
-Take a look at our [setup guide](https://www.tailwindtoolbox.com/setup) to start tweaking!
+6. **Responsive Design:**
+   - The landing page is designed to be responsive and accessible across different devices and screen sizes.
 
-## Sites created using this template
+## Usage:
 
-* [AnonAddy.com](https://anonaddy.com)
-* [MentorCV.com](https://mentorcv.com)
-* [Nodewood.com](https://nodewood.com)
-* [X-Wing AI](https://xwing.app)
-* [Auto-Swiper](https://www.auto-swiper.ch)
-* [Hosted Git](https://hosted-git.com)
-* [Qiusheji](https://qiusheji.com)
+To use the Campus Event Scheduler landing page:
 
-## Bugs and Issues
+1. Clone the repository to your local machine.
+2. Open the `index.html` file in a web browser to view the landing page.
+3. Navigate through different sections using the links in the navigation bar.
+4. RSVP for upcoming events or give feedback on attended events as desired.
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/tailwindtoolbox/Landing-Page/issues/new) here on GitHub.
+## Technologies Used:
 
-## Creator
+- HTML5
+- CSS3 (Tailwind CSS)
+- JavaScript
 
-[Tailwind Toolbox](https://www.tailwindtoolbox.com/) was created by and is maintained by **[Amrit Nagi](https://amritnagi.info/)**, Co-owner of [Astrava.Solutions](https://astrava.solutions).
+## Credits:
 
-* https://twitter.com/tailwindtoolbox
-* https://twitter.com/amritnagi
-* https://github.com/tailwindtoolbox
+- **Team 4:** This project was created by Team 4.
 
-Tailwind Toolbox is based on the [Tailwind CSS](https://www.tailwindcss.com/) framework created by [Adam Wathan](https://twitter.com/adamwathan), [Jonathan Reinink](https://twitter.com/reinink), [David Hemphill](https://twitter.com/davidhemphill) and [Steve Schoger](https://twitter.com/steveschoger)
+## License:
 
+This project is licensed under the [MIT License](LICENSE).
 
-## Image Attribution
+---
 
-[Hero vector created by freepik.com](https://www.freepik.com/free-vector/isometric-education-illustration_3940819.htm#page=1&query=isometric%20plane&position=1)
-
-Free for personal and commercial purpose with attribution
-
-## Copyright and License
-
-Copyright 2018-2022 Astrava.Solutions Ltd. Code released under the MIT license.
+Feel free to contribute to the project by submitting pull requests or reporting issues. For more information, contact the project team.
