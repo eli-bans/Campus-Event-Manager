@@ -98,49 +98,9 @@ document.getElementById('cancelButton').addEventListener('click', () => {
     document.getElementById('feedbackMenu').classList.add('hidden');
     // document.getElementById('mainContent').classList.remove('blur-background'); 
 });
-
-
-    // const feedbackMenu = document.getElementsByClassName('feedbackMenu');
-    // const submitButton = document.getElementById('submitButton');
-    // const cancelButton = document.getElementById('cancelButton');
-    // const feedbackButtons = document.getElementsByClassName('feedback-button');
-
-   // Select all feedback buttons
-//    var feedbackButtons = document.querySelectorAll('.feedback-button');
-
-//    // Select the feedback menu
-//    var feedbackMenu = document.querySelector('feedbackMenu');
-
-//    // Iterate through each feedback button
-//    feedbackButtons.forEach(function(button) {
-//         console.log("clicked");
-//        // Add click event listener to each feedback button
-//        button.addEventListener('click', function() {
-//            // Toggle the visibility of the feedback menu
-//            if (feedbackMenu.style.display === 'block') {
-//                feedbackMenu.style.display = 'none';
-//            } else {
-//                feedbackMenu.style.display = 'block';
-//            }
-//        });
-//    });
-    
-
-    // // Add event listener to the submit button
-    // submitButton.addEventListener('click', function() {
-    //     // Add your code to handle form submission here
-    //     console.log('Submitting feedback...');
-    //     feedbackMenu.style.display = 'none';
-    // });
-
-    // // Add event listener to the cancel button
-    // cancelButton.addEventListener('click', function() {
-    //     // Hide the pop-up menu
-    //     feedbackMenu.style.display = 'none';
-    // });
-
-
-
-
-
+// Handle the submit button separately
+document.getElementById('submitFeedbackButton').addEventListener('click', () => {
+    document.getElementById('feedbackMenu').classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
 

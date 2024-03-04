@@ -95,7 +95,7 @@
           <p class="leading-normal text-2xl mb-8">
             Don't just manage your events, make them memorable.
           </p>
-          <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+          <button id="createEventBtn" class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             Create Event
           </button>
         </div>
@@ -285,7 +285,7 @@
       <div class="bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
           <h1 class="text-center text-slate-600 text-xl font-bold col-span-6">Send Feedback</h1>
           <textarea class="bg-slate-700 text-slate-300 h-28 placeholder:text-slate-300 placeholder:opacity-50 border border-slate-600 col-span-6 resize-none outline-none rounded-lg p-2 duration-300 focus:border-slate-300" placeholder="Your feedback..."></textarea>
-          <button id="submitButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
+          <button id="submitFeedbackButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
               Submit
           </button>
           <button id="cancelButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
@@ -293,6 +293,48 @@
           </button>
       </div>
   </div>
+
+  <!-- The pop-up modal for Create Event -->
+  <div id="createEvent" class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center">
+    <div class="bg-white rounded-lg w-full max-w-md p-6">
+        <h2 class="text-2xl font-semibold mb-4">Create Event</h2>
+        <form>
+            <div class="mb-4">
+                <label for="title" class="block text-sm font-medium text-black">Title</label>
+                <input type="text" id="title" name="title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="date" class="block text-sm font-medium text-black">Date</label>
+                <input type="date" id="date" name="date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="time" class="block text-sm font-medium text-black">Time</label>
+                <input type="time" id="time" name="time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="location" class="block text-sm font-medium text-black">Location</label>
+                <input type="text" id="location" name="location" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-black">Description</label>
+                <textarea id="description" name="description" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="category" class="block text-sm font-medium text-black">Category</label>
+                <select id="category" name="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                    <option value="">Select a category</option>
+                    <!-- Add your category options dynamically here -->
+                </select>
+            </div>
+            <div class="flex justify-center">
+              <button id="submitEvent"type="submit" class="tmx-auto lg:mx-0  bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Submit</button>
+              <button id="cancelCreateEvent" type="button" class="tmx-auto lg:mx-0  bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-medium rounded-full my-8 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onclick="closeCreateEvent()">Cancel</button>
+          </div>
+        </form>
+    </div>
+</div>
+<!-- End the pop-up modal for Create Event -->
+
 
     <!--Footer-->
     <footer class="bg-white">
@@ -362,5 +404,50 @@
       <p class="text-gray-500">Project Created By Team 4</p>
     </footer>
     <script src="./js/index.js"></script>
+    <script>
+      // Function to handle the click event of the Create Event button
+// Function to handle the click event of the Create Event button
+document.getElementById('createEventBtn').addEventListener('click', () => {
+    showCreateEvent();
+});
+
+// Function to handle the click event of the Cancel button
+document.getElementById('cancelCreateEvent').addEventListener('click', () => {
+    closeCreateEvent();
+});
+
+// Function to handle the click event of the Submit button
+document.getElementById('submitEvent').addEventListener('click', () => {
+    closeCreateEvent();
+});
+
+// Function to close the Create Event modal
+function closeCreateEvent() {
+    var createEventModal = document.getElementById('createEvent');
+    createEventModal.classList.add('hidden');
+}
+
+// Function to show the Create Event modal
+function showCreateEvent() {
+    var createEventModal = document.getElementById('createEvent');
+    createEventModal.classList.remove('hidden');
+}
+
+// Handle close button separately
+document.getElementById('cancelButton').addEventListener('click', () => {
+    var createEventMenu = document.getElementById('createEvent');
+    createEventMenu.classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
+
+// Handle the submit button separately
+document.getElementById('submitFeedbackButton').addEventListener('click', () => {
+    var createEventMenu = document.getElementById('createEvent');
+    createEventMenu.classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
+
+
+  </script>
   </body>
 </html>

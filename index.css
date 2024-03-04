@@ -133,6 +133,15 @@ textarea {
   filter: blur(5px); 
 }
 
+#createEvent > div {
+  background: var(
+--gradient-2,
+linear-gradient(1deg, #b83838 0%, #233142 100%)
+);
+}
 
+#createEvent{
+  display: hidden;
 
+}
 
