@@ -1,10 +1,15 @@
+<?php
+//require_once '../settings/config_session.php'; //Require the session configuration
+//require_once '../function/register_controller.php'; //Require the register controller
+//?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up</title>
+    <title>Register | Campus Event Manager</title>
     <!-- Include Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -17,8 +22,8 @@
                 <input 
                     type="text"
                     class="block border border-gray-300 w-full p-3 rounded mb-4"
-                    name="fullname"
-                    placeholder="Full Name" />
+                    name="username"
+                    placeholder="Username" />
 
                 <input 
                     type="text"
@@ -55,7 +60,7 @@
 
             <div class="text-gray-600 mt-6">
                 Already have an account? 
-                <a class="no-underline border-b border-blue-500 text-blue-500" href="../login/">
+                <a class="no-underline border-b border-blue-500 text-blue-500" href="./login.php">
                     Log in
                 </a>.
             </div>
