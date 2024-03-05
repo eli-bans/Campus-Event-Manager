@@ -1,10 +1,14 @@
+<?php
+//require_once '../function/login_controller.php'; //Require the login controller
+//?> 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login | Campus Event Manager</title>
     <!-- Include Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
@@ -32,16 +36,16 @@
                     class="w-full text-center py-3 rounded bg-blue-500 text-white hover:bg-blue-700 focus:outline-none my-1"
                 >Login</button>
 
-                <div class="text-center text-sm text-gray-600 mt-4">
+                <!-- <div class="text-center text-sm text-gray-600 mt-4">
                     <a class="no-underline border-b border-gray-600 text-gray-600" href="#">
                         Forgot password?
                     </a>
-                </div>
+                </div> -->
             </div>
 
             <div class="text-gray-600 mt-6">
                 Don't have an account? 
-                <a class="no-underline border-b border-blue-500 text-blue-500" href="../signup/">
+                <a class="no-underline border-b border-blue-500 text-blue-500" href="./register.php">
                     Sign up here
                 </a>.
             </div>
