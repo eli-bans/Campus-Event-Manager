@@ -103,11 +103,14 @@ li {
   position: relative; 
 }
 
-textarea {
+/* textarea {
   color: #333;
   font-size: 16px;
   max-width: 100%;
-}
+} */
+
+
+
 
 #feedbackMenu > div > button {
   height: 60px;
@@ -143,5 +146,9 @@ linear-gradient(1deg, #b83838 0%, #233142 100%)
 #createEvent{
   display: hidden;
 
+}
+
+#createEvent > form{
+  color: #333;
 }
 

@@ -1,7 +1,7 @@
 <?php
-//require_once '../settings/config_session.php'; //Require the session configuration
-//require_once '../function/register_controller.php'; //Require the register controller
-//?>
+require_once '../settings/config_session.php'; //Require the session configuration
+require_once '../function/register_controller.php'; //Require the register controller
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,7 @@
         <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
             <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                 <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+                <form action="../action/register_user_action.php" method="POST">
                 <input 
                     type="text"
                     class="block border border-gray-300 w-full p-3 rounded mb-4"
@@ -36,6 +37,7 @@
                     class="block border border-gray-300 w-full p-3 rounded mb-4"
                     name="password"
                     placeholder="Password" />
+
                 <input 
                     type="password"
                     class="block border border-gray-300 w-full p-3 rounded mb-4"
@@ -57,6 +59,7 @@
                     </a>
                 </div>
             </div>
+            </form>
 
             <div class="text-gray-600 mt-6">
                 Already have an account? 
