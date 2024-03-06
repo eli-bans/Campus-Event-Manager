@@ -10,9 +10,21 @@
     <meta name="description" content="Simple landind page" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
+    <link rel="stylesheet" href="../node_modules/normalize.css/normalize.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <link rel="stylesheet" href="../css/home.css"/>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+  <style>
+    /* Style to set the text color of the input fields to black */
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="file"],
+    textarea,
+    select {
+        color: black; /* Set the text color to black */
+    }
+  </style> 
     
   </head>
   <body class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
@@ -275,42 +287,67 @@
       </div>
   </div>
 
-  <!-- The pop-up modal for Create Event -->
-  <div id="createEvent" class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center">
+<!-- The pop-up modal for Create Event -->
+<div id="createEvent" class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-lg w-full max-w-md p-6">
         <h2 class="text-2xl font-semibold mb-4">Create Event</h2>
-        <form>
+        <form action="../action/create_event_action.php" method="POST" enctype="multipart/form-data">
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-black">Title</label>
+                <label for="title" class="block text-sm font-medium text-white">Title</label>
                 <input type="text" id="title" name="title" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
             </div>
             <div class="mb-4">
-                <label for="date" class="block text-sm font-medium text-black">Date</label>
+                <label for="date" class="block text-sm font-medium text-white">Date</label>
                 <input type="date" id="date" name="date" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
             </div>
             <div class="mb-4">
-                <label for="time" class="block text-sm font-medium text-black">Time</label>
+                <label for="time" class="block text-sm font-medium text-white">Time</label>
                 <input type="time" id="time" name="time" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
             </div>
             <div class="mb-4">
-                <label for="location" class="block text-sm font-medium text-black">Location</label>
+                <label for="location" class="block text-sm font-medium text-white">Location</label>
                 <input type="text" id="location" name="location" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
             </div>
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-black">Description</label>
+                <label for="description" class="block text-sm font-medium text-white">Description</label>
                 <textarea id="description" name="description" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required></textarea>
             </div>
             <div class="mb-4">
-                <label for="category" class="block text-sm font-medium text-black">Category</label>
+                <label for="category" class="block text-sm font-medium text-white">Category</label>
                 <select id="category" name="category" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
-                    <option value="">Select a category</option>
-                    <!-- Add your category options dynamically here -->
+                    <?php
+                    require_once '../settings/connection.php'; // Include the database connection file
+                    
+                    // Query to select categories from the event_categories table
+                    $query = "SELECT * FROM event_categories";
+                    $result = $pdo->query($query);
+
+                    // Check if there are categories retrieved
+                    if ($result->rowCount() > 0) {
+                        echo '<option value="">Select a category</option>'; // Default option
+
+                        // Loop through each category
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            $category_id = $row['category_id'];
+                            $category_name = $row['name'];
+                            // Create option element for each category
+                            echo "<option value='$category_id'>$category_name</option>";
+                        }
+                    } else {
+                        // No categories found
+                        echo "<option value=''>No categories found</option>";
+                    }
+                    ?>
                 </select>
             </div>
+            <div class="mb-4">
+                <label for="image" class="block text-sm font-medium text-white">Image</label>
+                <input type="file" id="image" name="image" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+            </div>       
             <div class="flex justify-center">
-              <button id="submitEvent"type="submit" class="tmx-auto lg:mx-0  bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Submit</button>
-              <button id="cancelCreateEvent" type="button" class="tmx-auto lg:mx-0  bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-medium rounded-full my-8 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onclick="closeCreateEvent()">Cancel</button>
-          </div>
+                <button id="submitEvent" type="submit" class="tmx-auto lg:mx-0 bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">Create</button>
+                <button id="cancelCreateEvent" type="button" class="tmx-auto lg:mx-0 bg-white text-gray-ml-4 text-gray-700 hover:tex800 font-medium rounded-full my-8 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onclick="closeCreateEvent()">Cancel</button>
+            </div>
         </form>
     </div>
 </div>
@@ -386,6 +423,9 @@
     </footer>
     <script src="../js/home.js"></script>
     <script>
+
+var createEventModal = document.getElementById('createEvent');
+createEventModal.classList.add('hidden');
 
 // Function to handle the click event of the Create Event button
 document.getElementById('createEventBtn').addEventListener('click', () => {

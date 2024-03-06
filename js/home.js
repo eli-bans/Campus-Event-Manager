@@ -98,9 +98,4 @@ document.getElementById('cancelButton').addEventListener('click', () => {
     document.getElementById('feedbackMenu').classList.add('hidden');
     // document.getElementById('mainContent').classList.remove('blur-background'); 
 });
-// Handle the submit button separately
-document.getElementById('submitFeedbackButton').addEventListener('click', () => {
-    document.getElementById('feedbackMenu').classList.add('hidden');
-    // document.getElementById('mainContent').classList.remove('blur-background'); 
-});
 

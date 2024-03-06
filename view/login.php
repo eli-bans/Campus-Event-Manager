@@ -1,16 +1,3 @@
-<?php
-session_start();
-if (isset($_SESSION['errors_login'])) {
-    $errors = $_SESSION['errors_login'];
-
-    foreach ($errors as $error) {
-        echo "$error";
-    }
-    // header('Location: ../index.php');
-    // die();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
