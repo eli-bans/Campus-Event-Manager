@@ -121,65 +121,101 @@
     <div class="relative -mt-12 lg:-mt-24">
       <div style="position: relative;">
     </div>
-    <section class="bg-white border-b py-8" id="events-section">
-        <div class="container max-w-5xl mx-auto m-8">
-            <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Upcoming Events
-            </h2>
-            <div class="w-full mb-4">
-                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-            </div>
-            <div class="flex flex-wrap">
-              <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+
+<!-- Current Events -->
+ <section class="bg-white border-b py-8" id="events-section">
+    <div class="container max-w-5xl mx-auto m-8">
+        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+            Upcoming Events
+        </h2>
+        <div class="w-full mb-4">
+            <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+
+        <?php
+        require_once '../settings/connection.php'; 
+
+        // Query to select events
+        $query = "SELECT * FROM events";
+        $result = $pdo->query($query);
+
+        // Check if there are events retrieved
+        if ($result->rowCount() > 0) {
+            $counter = 0;
+
+            // Loop through each event
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $event_id = $row['event_id'];
+                $event_title = $row['title'];
+                $event_description = $row['description'];
+                $event_image = $row['img_path'];
+                ?>
+
+                <!-- Event Container -->
                 <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-                  <!-- Content 1-->
-                  <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
-                      <div>
-                          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                              Ashesi Matriculation 2022
-                          </h3>
-                          <p class="text-gray-600 mb-8">
-                              The Ashesi Matriculation 2022 is an event to welcome the new students to the Ashesi community. It is a day of celebration and a day to remember.
-                              <br />
-                              <br />
-                              <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                  RSVP
-                              </button>
-                          </p>
+                  <?php
+                    if (fmod($counter, 2) == 0) {
+                      ?>
+                      <!-- Event Content -->
+                      <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+                          <div>
+                              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                                  <?php echo $event_title; ?>
+                              </h3>
+                              <p class="text-gray-600 mb-8">
+                                  <?php echo $event_description; ?>
+                                  <br />
+                                  <br />
+                                      <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                      <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                          RSVP
+                                      </button>
+                              </p>
+                          </div>
                       </div>
+                      <!-- Event Image -->
+                      <div class="w-full sm:w-1/2 p-6">
+                          <img src="<?php echo $event_image; ?>" alt="Event Image" class="w-full">
+                      </div>
+                    <?php
+                    } else {
+                    ?>
+                        <!-- Event Image -->
+                        <div class="w-full sm:w-1/2 p-6">
+                            <img src="<?php echo $event_image; ?>" alt="Event Image" class="w-full">
+                        </div>
+                        <!-- Event Content -->
+                        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+                            <div>
+                                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                                    <?php echo $event_title; ?>
+                                </h3>
+                                <p class="text-gray-600 mb-8">
+                                    <?php echo $event_description; ?>
+                                    <br />
+                                    <br />
+                                        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                        <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                            RSVP
+                                        </button>
+                                </p>
+                            </div>
+                        </div>
+                  <?php
+                    }
+                    $counter++;
+                  ?>
                 </div>
-                  <!-- Image 1-->
-                  <div class="w-full sm:w-1/2 p-6">
-                      <img src="../images/Ashesi_WHO_Event_Launch_d.jpg" alt="Your Image" class="w-full">
-                  </div>
-              </div>
-              
-              <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-                  <!-- Image 2-->
-                  <div class="w-full sm:w-1/2 p-6">
-                      <img src="../images/ashesi-friends.jpeg" alt="Your Image" class="w-full">
-                  </div>
-                  <!-- Content 2-->
-                  <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
-                      <div>
-                          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                              Buddy Up with Ashesi
-                          </h3>
-                          <p class="text-gray-600 mb-8">
-                              Buddy Up with Ashesi is a program that pairs students from Ashesi University with students from other universities in Ghana to help them integrate into the Ashesi community.
-                              <br />
-                              <br />
-                              <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                  RSVP
-                              </button>
-                          </p>
-                      </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-    </section>
-    
+            <?php
+            }
+        } else {
+            // No events found
+            echo "<p>No upcoming events found.</p>";
+        }
+        ?>
+    </div>
+</section>
+  
     <section class="bg-gray-100 py-8">
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
@@ -273,7 +309,7 @@
       </h3>
     </section>
 
-      <!-- Pop-up menu -->
+      <!-- Pop-up menu for feedback -->
     <div id="feedbackMenu" class="hidden bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
       <div class="bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
           <h1 class="text-center text-slate-600 text-xl font-bold col-span-6">Send Feedback</h1>
@@ -287,6 +323,24 @@
       </div>
   </div>
 
+<!-- Pop-up menu for RSVP -->
+<div id="rsvpMenu" class="hidden bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
+    <div class="bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
+        <h1 class="text-center text-gray-600 text-xl font-bold col-span-6">RSVP</h1>
+        <form action="../action/rsvp_event_action.php" method="POST" >
+        <select class="bg-gray-700 text-gray-300 border border-gray-600 col-span-6 outline-none rounded-lg p-2 duration-300 focus:border-gray-300">
+            <option value="yes">Yes, I will attend</option>
+            <option value="no">No, I cannot attend</option>
+        </select>
+        <button id="submitRSVPButton" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
+            Submit
+        </button>
+        <button id="cancelRSVPButton" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
+            Cancel
+        </button>
+        </form>
+    </div>
+  </div>
 <!-- The pop-up modal for Create Event -->
 <div id="createEvent" class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-lg w-full max-w-md p-6">
@@ -461,14 +515,47 @@ document.getElementById('cancelButton').addEventListener('click', () => {
     // document.getElementById('mainContent').classList.remove('blur-background'); 
 });
 
-// Handle the submit button separately
-document.getElementById('submitFeedbackButton').addEventListener('click', () => {
-    var createEventMenu = document.getElementById('createEvent');
-    createEventMenu.classList.add('hidden');
-    // document.getElementById('mainContent').classList.remove('blur-background'); 
-});
+// // Handle the submit button separately
+// document.getElementById('submitFeedbackButton').addEventListener('click', () => {
+//     var createEventMenu = document.getElementById('createEvent');
+//     createEventMenu.classList.add('hidden');
+//     // document.getElementById('mainContent').classList.remove('blur-background'); 
+// });
 
 
   </script>
+<script>
+    // Function to show the RSVP pop-up
+    function showRSVPPopup() {
+        document.getElementById('rsvpMenu').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden'); // Prevent scrolling behind the pop-up
+        document.body.insertAdjacentHTML('beforeend', '<div class="backdrop"></div>'); // Add backdrop
+        document.getElementById('cancelRSVPButton').addEventListener('click', hideRSVPPopup);
+        document.getElementById('submitRSVPButton').addEventListener('click', hideRSVPPopup);
+    }
+
+    // Function to hide the RSVP pop-up
+    function hideRSVPPopup() {
+        document.getElementById('rsvpMenu').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden'); // Allow scrolling again
+        document.querySelector('.backdrop').remove(); // Remove backdrop
+        document.getElementById('cancelRSVPButton').removeEventListener('click', hideRSVPPopup);
+        document.getElementById('submitRSVPButton').removeEventListener('click', hideRSVPPopup);
+    }
+
+    // Event listener for showing the RSVP pop-up
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('rsvp')) {
+            showRSVPPopup();
+        }
+    });
+
+    //handle submit button separately
+    document.getElementById('submitRSVPButton').addEventListener('click', () => {
+        hideRSVPPopup();
+    });
+</script>
+
+
   </body>
 </html>
