@@ -121,64 +121,107 @@
     <div class="relative -mt-12 lg:-mt-24">
       <div style="position: relative;">
     </div>
-    <section class="bg-white border-b py-8" id="events-section">
-        <div class="container max-w-5xl mx-auto m-8">
-            <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                Upcoming Events
-            </h2>
-            <div class="w-full mb-4">
-                <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-            </div>
-            <div class="flex flex-wrap">
-              <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+
+
+ <section class="bg-white border-b py-8" id="events-section">
+    <div class="container max-w-5xl mx-auto m-8">
+        <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+            Upcoming Events
+        </h2>
+        <div class="w-full mb-4">
+            <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+
+        <?php
+        require_once '../settings/connection.php'; 
+
+        // Query to select events
+        $query = "SELECT * FROM events";
+        $result = $pdo->query($query);
+
+        // Check if there are events retrieved
+        if ($result->rowCount() > 0) {
+            $counter = 0;
+
+            // Loop through each event
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $event_id = $row['event_id'];
+                $event_title = $row['title'];
+                $event_description = $row['description'];
+                $event_image = $row['img_path'];
+                ?>
+
+                <!-- Event Container -->
                 <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-                  <!-- Content 1-->
-                  <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
-                      <div>
-                          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                              Ashesi Matriculation 2022
-                          </h3>
-                          <p class="text-gray-600 mb-8">
-                              The Ashesi Matriculation 2022 is an event to welcome the new students to the Ashesi community. It is a day of celebration and a day to remember.
-                              <br />
-                              <br />
-                              <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                  RSVP
-                              </button>
-                          </p>
+                  <?php
+                    if (fmod($counter, 2) == 0) {
+                      ?>
+                      <!-- Event Content -->
+                      <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+                          <div>
+                              <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                                  <?php echo $event_title; ?>
+                              </h3>
+                              <p class="text-gray-600 mb-8">
+                                  <?php echo $event_description; ?>
+                                  <br />
+                                  <br />
+                                  <form action="../action/rsvp_event_action.php" method="GET">
+                                      <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                      <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                          RSVP
+                                      </button>
+                                  </form>
+                              </p>
+                          </div>
                       </div>
+                      <!-- Event Image -->
+                      <div class="w-full sm:w-1/2 p-6">
+                          <img src="<?php echo $event_image; ?>" alt="Event Image" class="w-full">
+                      </div>
+                    <?php
+                    } else {
+                    ?>
+                        <!-- Event Image -->
+                        <div class="w-full sm:w-1/2 p-6">
+                            <img src="<?php echo $event_image; ?>" alt="Event Image" class="w-full">
+                        </div>
+                        <!-- Event Content -->
+                        <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
+                            <div>
+                                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                                    <?php echo $event_title; ?>
+                                </h3>
+                                <p class="text-gray-600 mb-8">
+                                    <?php echo $event_description; ?>
+                                    <br />
+                                    <br />
+                                    <form action="../action/rsvp_event_action.php" method="GET">
+                                        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                        <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                            RSVP
+                                        </button>
+                                    </form>
+                                </p>
+                            </div>
+                        </div>
+                  <?php
+                    }
+                    $counter++;
+                  ?>
                 </div>
-                  <!-- Image 1-->
-                  <div class="w-full sm:w-1/2 p-6">
-                      <img src="../images/Ashesi_WHO_Event_Launch_d.jpg" alt="Your Image" class="w-full">
-                  </div>
-              </div>
-              
-              <div class="flex flex-wrap flex-col-reverse sm:flex-row">
-                  <!-- Image 2-->
-                  <div class="w-full sm:w-1/2 p-6">
-                      <img src="../images/ashesi-friends.jpeg" alt="Your Image" class="w-full">
-                  </div>
-                  <!-- Content 2-->
-                  <div class="w-full sm:w-1/2 p-6 flex items-center justify-center">
-                      <div>
-                          <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                              Buddy Up with Ashesi
-                          </h3>
-                          <p class="text-gray-600 mb-8">
-                              Buddy Up with Ashesi is a program that pairs students from Ashesi University with students from other universities in Ghana to help them integrate into the Ashesi community.
-                              <br />
-                              <br />
-                              <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                                  RSVP
-                              </button>
-                          </p>
-                      </div>
-                  </div>
-              </div>
-              </div>
-            </div>
-    </section>
+            <?php
+            }
+        } else {
+            // No events found
+            echo "<p>No upcoming events found.</p>";
+        }
+        ?>
+    </div>
+</section>
+
+
+
     
     <section class="bg-gray-100 py-8">
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
