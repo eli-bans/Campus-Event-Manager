@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -166,7 +169,8 @@
                                   <?php echo $event_description; ?>
                                   <br />
                                   <br />
-                                      <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                  <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                  <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                       <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                           RSVP
                                       </button>
@@ -194,7 +198,8 @@
                                     <?php echo $event_description; ?>
                                     <br />
                                     <br />
-                                        <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
+                                        <input type="hidden" id="event_id" data-event_id="<?php echo $event_id; ?>" style="color: red;" name="event_id" value="<?php echo $event_id; ?>">
+                                        <input type="hidden" id="user_id" data-user_id="<?php echo $_SESSION['user_id']; ?>" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                         <button class="rsvp mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-5 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                             RSVP
                                         </button>
@@ -327,15 +332,15 @@
 <div id="rsvpMenu" class="hidden bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
     <div class="bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
         <h1 class="text-center text-gray-600 text-xl font-bold col-span-6">RSVP</h1>
-        <form action="../action/rsvp_event_action.php" method="POST" >
-        <select class="bg-gray-700 text-gray-300 border border-gray-600 col-span-6 outline-none rounded-lg p-2 duration-300 focus:border-gray-300">
-            <option value="yes">Yes, I will attend</option>
-            <option value="no">No, I cannot attend</option>
+        <form>
+        <select id="status" name = "status" class="bg-gray-700 text-gray-300 border border-gray-600 col-span-6 outline-none rounded-lg p-2 duration-300 focus:border-gray-300">
+            <option value="going">Yes, I will attend</option>
+            <option value="not_going">No, I cannot attend</option>
         </select>
-        <button id="submitRSVPButton" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
+        <button id="submitRSVPButton" type ="button" class="col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600" onclick="sendRSVPData()">
             Submit
         </button>
-        <button id="cancelRSVPButton" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
+        <button id="cancelRSVPButton" type="button" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
             Cancel
         </button>
         </form>
@@ -476,6 +481,7 @@
       <p class="text-gray-500">Project Created By Team 4</p>
     </footer>
     <script src="../js/home.js"></script>
+    <script src="../js/rsvp.js"></script>
     <script>
 
 var createEventModal = document.getElementById('createEvent');
@@ -555,6 +561,7 @@ document.getElementById('cancelButton').addEventListener('click', () => {
         hideRSVPPopup();
     });
 </script>
+
 
 
   </body>
