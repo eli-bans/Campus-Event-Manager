@@ -1,14 +1,19 @@
 <?php
 
-declare(strict_types=1);
+require_once '../settings/connection.php';
 
-function rsvp_event($pdo, $event_id, $user_id, $status): bool
+// declare(strict_types=1);
+
+function rsvp_event($pdo,$event_id,$user_id,$status)
 {
-    $sql = "INSERT INTO rsvp (event_id, user_id, status, created_at) VALUES (:event_id, :user_id, :status, NOW())";
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindParam(':event_id', $event_id, PDO::PARAM_INT);
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-    $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-    return $stmt->execute();
+    $query = 'INSERT INTO rsvps (event_id, user_id, status) VALUES (:event_id, :user_id, :status)';
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':event_id', $event_id);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':status', $status);
+    $stmt->execute();
 }
+
+
+
 
