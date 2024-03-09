@@ -51,8 +51,9 @@ session_start()
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li>
               <div class="searchBox">
-                <input class="searchInput" type="text" name="" placeholder="Search event">
-                <button class="searchButton" href="#"> 
+              <form action="./results.php" method="GET" class="searchBox">
+                <input class="searchInput" type="text" name="search" placeholder="Search event">
+                <button class="searchButton" href="./results.php" method="GET"> 
                   <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
                     <g clip-path="url(#clip0_2_17)">
                       <g filter="url(#filter0_d_2_17)">
@@ -76,6 +77,7 @@ session_start()
                     </defs>
                   </svg>
                 </button>
+              </form>
               </div>
             </div>
             </li>
@@ -85,7 +87,7 @@ session_start()
               <a class="toggleColour text-white no-underline hover:no-underline font-bold" href="#events-section">Events</a>
             </li>
             <li class="mr-3">
-              <a class="toggleColour text-white no-underline hover:no-underline font-bold" href="#">About</a>
+              <a class="toggleColour text-white no-underline hover:no-underline font-bold" href="about.php">About</a>
             </li>
           </ul>
           <button
@@ -220,84 +222,72 @@ session_start()
         ?>
     </div>
 </section>
-  
-    <section class="bg-gray-100 py-8">
-      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+<!-- End of Current Events -->
+
+<!-- Section for Attended Events -->
+<?php
+// Include the database connection file
+require_once '../settings/connection.php'; 
+
+// Get the user ID from the session
+$user_id = $_SESSION['user_id'];
+
+// Query to select attended events for the user along with their category names
+$query = "SELECT events.*, event_categories.name AS category_name
+          FROM events 
+          INNER JOIN rsvps ON events.event_id = rsvps.event_id 
+          INNER JOIN event_categories ON events.category_id = event_categories.category_id
+          WHERE rsvps.user_id = :user_id AND rsvps.status = 'going'";
+$stmt = $pdo->prepare($query);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
+$attended_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!-- Section for Attended Events -->
+<section class="bg-gray-100 py-8">
+    <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Attended Events 
+            Attended Events 
         </h2>
         <div class="w-full mb-4">
-          <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
-        </div>
-        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-            <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-              <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                CULTURAL 
-              </p>
-              <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
-              </div>
-              <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-              </p>
-            </a>
-          </div>
-          <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-            <div class="flex items-center justify-center">
-                <button class="feedback-button mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                    Give Feedback
-                </button>
-            </div>
-        </div>
+            <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
 
-        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-            <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-              <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                SOCIAL 
-              </p>
-              <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
-              </div>
-              <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-              </p>
-            </a>
-          </div>
-          <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-            <div class="flex items-center justify-center">
-              <button class="feedback-button mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Give Feedback
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
-            <a href="#" class="flex flex-wrap no-underline hover:no-underline">
-              <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                ACADEMIC 
-              </p>
-              <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
-              </div>
-              <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-              </p>
-            </a>
-          </div>
-          <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
-            <div class="flex items-center justify-center">
-              <button class="feedback-button mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Give Feedback
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+        <?php if (empty($attended_events)): ?>
+            <p class="text-center text-gray-800 text-xl">No attended events found.</p>
+        <?php else: ?>
+            <?php foreach ($attended_events as $event): ?>
+                <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                    <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                        <a href="#" class="flex flex-wrap no-underline hover:no-underline">
+                            <p class="w-full text-gray-600 text-xs md:text-sm px-6">
+                                <?php echo $event['category_name']; ?>
+                            </p>
+                            <div class="w-full font-bold text-xl text-gray-800 px-6">
+                                <?php echo $event['title']; ?>
+                            </div>
+                            <p class="text-gray-800 text-base px-6 mb-5">
+                                <?php echo $event['description']; ?>
+                            </p>
+                        </a>
+                    </div>
+                    <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                        <div class="flex items-center justify-center">
+                            <!-- Feedback button -->
+                            <button class="feedback-button mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                Give Feedback
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</section>
+
+
+
 </div>
     
     <!-- Change the colour #f8fafc to match the previous section colour -->
@@ -314,38 +304,40 @@ session_start()
       </h3>
     </section>
 
-      <!-- Pop-up menu for feedback -->
-    <div id="feedbackMenu" class="hidden bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
-      <div class="bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
-          <h1 class="text-center text-slate-600 text-xl font-bold col-span-6">Send Feedback</h1>
-          <textarea class="bg-slate-700 text-slate-300 h-28 placeholder:text-slate-300 placeholder:opacity-50 border border-slate-600 col-span-6 resize-none outline-none rounded-lg p-2 duration-300 focus:border-slate-300" placeholder="Your feedback..."></textarea>
-          <button id="submitFeedbackButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
-              Submit
-          </button>
-          <button id="cancelButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
-              Cancel
-          </button>
-      </div>
-  </div>
+<!-- Pop-up menu for feedback -->
+<div id="feedbackMenu" class="hidden bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
+    <div class="bg-slate-800 border border-slate-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
+        <h1 class="text-center text-slate-600 text-xl font-bold col-span-6">Send Feedback</h1>
+        <textarea id="feedbackText" class="bg-slate-700 text-slate-300 h-28 placeholder:text-slate-300 placeholder:opacity-50 border border-slate-600 col-span-6 resize-none outline-none rounded-lg p-2 duration-300 focus:border-slate-300" placeholder="Your feedback..."></textarea>
+        <button id="submitFeedbackButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
+            Submit
+        </button>
+        <button id="cancelFeedbackButton" class="fill-slate-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-slate-700 hover:border-slate-300 focus:fill-blue-200 focus:bg-blue-600 border border-slate-600">
+            Cancel
+        </button>
+    </div>
+</div>
 
 <!-- Pop-up menu for RSVP -->
 <div id="rsvpMenu" class="hidden bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
-    <div class="bg-gray-800 border border-gray-700 grid grid-cols-6 gap-2 rounded-xl p-2 text-sm">
-        <h1 class="text-center text-gray-600 text-xl font-bold col-span-6">RSVP</h1>
-        <form>
-        <select id="status" name = "status" class="bg-gray-700 text-gray-300 border border-gray-600 col-span-6 outline-none rounded-lg p-2 duration-300 focus:border-gray-300">
-            <option value="going">Yes, I will attend</option>
-            <option value="not_going">No, I cannot attend</option>
-        </select>
-        <button id="submitRSVPButton" type ="button" class="col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600" onclick="sendRSVPData()">
-            Submit
-        </button>
-        <button id="cancelRSVPButton" type="button" class="fill-gray-300 col-span-2 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
-            Cancel
-        </button>
-        </form>
+  <h1 class="text-center text-gray-600 text-xl font-bold col-span-6">RSVP</h1>
+  <form class="grid grid-cols-6 gap-2">
+    <select id="status" name="status" class="bg-gray-700 text-gray-300 border border-gray-600 col-span-6 outline-none rounded-lg p-2 duration-300 focus:border-gray-300 appearance-none pr-8">
+      <option value="going">Yes, I will attend</option>
+      <option value="not_going">No, I cannot attend</option>
+    </select>
+    <div class="col-span-6 flex justify-between">
+      <button id="cancelRSVPButton" type="button" class="fill-gray-300 flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600">
+        Cancel
+      </button>
+      <button id="submitRSVPButton" type="button" class="flex justify-center items-center rounded-lg p-2 duration-300 bg-gray-700 hover:border-gray-300 focus:fill-blue-200 focus:bg-blue-600 border border-gray-600" onclick="sendRSVPData()">
+        Submit
+      </button>
     </div>
-  </div>
+  </form>
+</div>
+
+
 <!-- The pop-up modal for Create Event -->
 <div id="createEvent" class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center">
     <div class="bg-white rounded-lg w-full max-w-md p-6">

@@ -1,3 +1,0 @@
-Do the images thing
-Need to add the images path thingy to the database 
-And then i need to fix the search 

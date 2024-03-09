@@ -100,3 +100,49 @@ document.getElementById('cancelButton').addEventListener('click', () => {
 });
 
 
+
+var createEventModal = document.getElementById('createEvent');
+createEventModal.classList.add('hidden');
+
+// Function to handle the click event of the Create Event button
+document.getElementById('createEventBtn').addEventListener('click', () => {
+    showCreateEvent();
+});
+
+// Function to handle the click event of the Cancel button
+document.getElementById('cancelCreateEvent').addEventListener('click', () => {
+    closeCreateEvent();
+});
+
+// Function to handle the click event of the Submit button
+document.getElementById('submitEvent').addEventListener('click', () => {
+    closeCreateEvent();
+});
+
+// Function to close the Create Event modal
+function closeCreateEvent() {
+    var createEventModal = document.getElementById('createEvent');
+    createEventModal.classList.add('hidden');
+}
+
+// Function to show the Create Event modal
+function showCreateEvent() {
+    var createEventModal = document.getElementById('createEvent');
+    createEventModal.classList.remove('hidden');
+}
+
+// Handle close button separately
+document.getElementById('cancelButton').addEventListener('click', () => {
+    var createEventMenu = document.getElementById('createEvent');
+    createEventMenu.classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
+
+// Handle the submit button separately
+document.getElementById('submitFeedbackButton').addEventListener('click', () => {
+    var createEventMenu = document.getElementById('createEvent');
+    createEventMenu.classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
+
+

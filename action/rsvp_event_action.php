@@ -13,10 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo "Hello World3";
     $user_id = $_SESSION['user_id'];
     echo "Hello World4";
-    $status = $_GET['status']; //going or not going
+    $status = $_GET['status']; // yes or no
     echo "Hello World5";
-    rsvp_event($pdo,$event_id,$user_id,$status);
    
+   rsvp_event($pdo,$event_id,$user_id,$status);
+   
+    echo "window.location.href = '../view/home.php';"
 
    
    

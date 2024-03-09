@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * This file is the action file for the login form. 
  * It checks if the user input is valid and logs the user in if it is. 
@@ -46,11 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){  //Check if the form has been submitt
 
         if ($errors){
             $_SESSION['errors_login'] = $errors;
-
-            foreach ($errors as $error){
-                echo "$error";
-            }
-            header('Location: ../index.php');
+            header('Location: ../view/login.php');
             die();
         }
 
