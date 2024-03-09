@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 session_start();
-echo "Hello World1";
+
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){ 
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $event_location = $_POST['location'];
     $event_description = $_POST['description'];
     $event_image = $_FILES['image']['name']; 
-    echo $event_image;
+    
 
     $hash_time = md5(time());
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
-    echo "Hello World5";
+   
     
     try{
         echo "Hello World6";
@@ -46,19 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         require_once '../function/create_event_model.php';
         require_once '../function/create_event_controller.php';
 
-        echo "Hello World7";
+      
         $errors = [];
 
         if (is_input_empty($event_name, $event_date, $event_time, $event_location, $event_description, $event_image)){
             $errors["empty_input"] = "Please fill in all fields!";
         }
-        echo "Hello World8";
+   
         
         if (is_event_conflict($pdo, $event_date, $event_time)){
             $errors["event_conflict"] = "Event date and time conflict with another event!";
         }
 
-        echo "Hello World9";
+        
     
 
         if ($errors){

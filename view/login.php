@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +17,14 @@
         <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
             <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
                 <h1 class="mb-8 text-3xl text-center">Login</h1>
+                <?php
+                if (isset($_SESSION['errors_login'])) {
+                    foreach ($_SESSION['errors_login'] as $error) {
+                        echo '<p class="text-red-500 mb-2">' . $error . '</p>';
+                    }
+                    unset($_SESSION['errors_login']);
+                }
+                ?>
 
                 <form action="../action/login_user_action.php" method="post">
                     <input type="text" class="block border border-gray-300 w-full p-3 rounded mb-4" name="username" placeholder="Username" />

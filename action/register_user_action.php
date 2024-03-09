@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * This file is the action file for the register form and it checks if the user input 
  * is valid and registers the user if it is.
@@ -9,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $username = $_POST['username'];
     $email = $_POST['email'];
     $pwd = $_POST['password'];
-    $pwd_repeat = $_POST['password_repeat'];
+    $pwd_repeat = $_POST['confirm_password'];
     echo "Hello World1";
 
     try{
@@ -48,18 +49,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo "Hello World7";
         
         
-        // if ( is_password_invalid($pwd, $pwd_repeat)){
-        //     $errors["invalid_password"] = "Passwords do not match!";
-        // }
+        if ( is_password_invalid($pwd, $pwd_repeat)){
+            $errors["invalid_password"] = "Passwords do not match!";
+        }
         echo "Hello World8";
 
         require_once '../settings/config_session.php'; 
         
 
-        if ($errors){
-            
+        if ($errors){         
             $_SESSION['errors_register'] = $errors;
-
             header('Location: ../view/register.php');
             die();
 
