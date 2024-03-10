@@ -128,7 +128,7 @@ session_start()
     </div>
 
 <!-- Current Events -->
- <section class="bg-white border-b py-8" id="events-section">
+<section class="bg-white border-b py-8" id="events-section">
     <div class="container max-w-5xl mx-auto m-8">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
             Upcoming Events
@@ -153,7 +153,7 @@ session_start()
                 $event_id = $row['event_id'];
                 $event_title = $row['title'];
                 $event_description = $row['description'];
-                $event_image = $row['img_path'];
+                $event_image = '../images/' .$row['img_path'];
                 ?>
 
                 <!-- Event Container -->
@@ -222,42 +222,36 @@ session_start()
         ?>
     </div>
 </section>
-<!-- End of Current Events -->
 
-<!-- Section for Attended Events -->
-<?php
-// Include the database connection file
-require_once '../settings/connection.php'; 
 
-// Get the user ID from the session
-$user_id = $_SESSION['user_id'];
 
-// Query to select attended events for the user along with their category names
-$query = "SELECT events.*, event_categories.name AS category_name
-          FROM events 
-          INNER JOIN rsvps ON events.event_id = rsvps.event_id 
-          INNER JOIN event_categories ON events.category_id = event_categories.category_id
-          WHERE rsvps.user_id = :user_id AND rsvps.status = 'going'";
-$stmt = $pdo->prepare($query);
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$attended_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
 
-<!-- Section for Attended Events -->
+
+<!-- Section for Past Events -->
 <section class="bg-gray-100 py-8">
     <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-            Attended Events 
+            Past Events
         </h2>
         <div class="w-full mb-4">
             <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
 
-        <?php if (empty($attended_events)): ?>
-            <p class="text-center text-gray-800 text-xl">No attended events found.</p>
-        <?php else: ?>
-            <?php foreach ($attended_events as $event): ?>
+        <?php
+        // Get current date
+        $current_date = date('Y-m-d');
+
+        // Query to select past events
+        $query = "SELECT * FROM events WHERE date < :current_date";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':current_date', $current_date);
+        $stmt->execute();
+        $past_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($past_events)): ?>
+            <p class="text-center text-gray-800 text-xl">No past events found.</p>
+        <?php else:
+            foreach ($past_events as $event): ?>
                 <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
                     <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
                         <a href="#" class="flex flex-wrap no-underline hover:no-underline">
@@ -281,10 +275,11 @@ $attended_events = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            <?php endforeach;
+        endif; ?>
     </div>
 </section>
+
 
 
 
