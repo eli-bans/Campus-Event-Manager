@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
 
         create_event($pdo, $event_name, $event_date, $event_time, $event_location, $event_description, $event_image);
+        header('Location: ../view/home.php');
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }

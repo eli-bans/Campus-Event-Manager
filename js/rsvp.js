@@ -4,7 +4,6 @@ function sendRSVPData(){
     const status = document.getElementById('status').value;
     const user_id = document.getElementById('user_id').getAttribute('data-user_id');
     const event_id = document.getElementById('event_id').getAttribute('data-event_id');
-
     console.log({status, user_id, event_id});
 
     /* The code `ajax.onload` is setting up an event handler that will be triggered when the AJAX
