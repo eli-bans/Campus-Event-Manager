@@ -94,7 +94,7 @@ document.querySelectorAll(".feedback-button").forEach((button) => {
 });
 
 // Handle close button separately
-document.getElementById('cancelButton').addEventListener('click', () => {
+document.getElementById('cancelFeedbackButton').addEventListener('click', () => {
     document.getElementById('feedbackMenu').classList.add('hidden');
     // document.getElementById('mainContent').classList.remove('blur-background'); 
 });
@@ -132,7 +132,7 @@ function showCreateEvent() {
 }
 
 // Handle close button separately
-document.getElementById('cancelButton').addEventListener('click', () => {
+document.getElementById('cancelFeedbackButton').addEventListener('click', () => {
     var createEventMenu = document.getElementById('createEvent');
     createEventMenu.classList.add('hidden');
     // document.getElementById('mainContent').classList.remove('blur-background'); 

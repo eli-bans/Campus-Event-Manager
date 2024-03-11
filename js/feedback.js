@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     // Add event listener to the submit feedback button
     document.getElementById("submitFeedbackButton").addEventListener("click", function () {
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
 function sendFeedbackData() {
     const ajax = new XMLHttpRequest();
     const feedbackText = document.getElementById('feedbackText').value;
+    const event_id = document.getElementById('event_id').getAttribute('data-event_id');
+    console.log("clicked submit");
 
     // Check if the feedback text is not empty
     if (feedbackText.trim() === '') {
@@ -34,16 +37,15 @@ function sendFeedbackData() {
         }
     };
 
-   // Open the AJAX request with POST method
-ajax.open('POST', '../action/feedback_action.php', true);
+    // Send the AJAX request with the encoded feedback text as the payload
+    const data = 'feedbackText=' + encodeURIComponent(feedbackText) + '&event_id=' + encodeURIComponent(event_id);
 
-// Set the Content-Type header to indicate the form data
-ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // Open the AJAX request with POST method
+    ajax.open('POST', '../action/feedback_action.php', true);
 
-// Send the AJAX request with the encoded feedback text as the payload
-ajax.send('feedbackText=' + encodeURIComponent(feedbackText));
-
-
+    // Set the Content-Type header to indicate the form data
+    ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
     // Send the AJAX request
-    ajax.send();
+    ajax.send(data);
 }
