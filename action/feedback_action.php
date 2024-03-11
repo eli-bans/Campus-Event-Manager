@@ -3,6 +3,7 @@ session_start();
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     // Check if feedbackText is set in the POST parameters
     if (isset($_POST['feedbackText']) && isset($_POST['event_id']) && isset($_SESSION['user_id'])) {
         // Retrieve feedback text, event id, and user id from POST parameters
@@ -36,4 +37,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle cases where the request method is not POST
     echo "Invalid request method.";
 }
-?>

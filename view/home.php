@@ -139,10 +139,16 @@ session_start()
 
         <?php
         require_once '../settings/connection.php'; 
+       
+        // Get current date
+        $current_date = date('Y-m-d');
 
-        // Query to select events
-        $query = "SELECT * FROM events";
-        $result = $pdo->query($query);
+        // Query to select past events
+        $query = "SELECT * FROM events WHERE date >= :current_date";
+        $stmt = $pdo->prepare($query);
+        $stmt->bindParam(':current_date', $current_date);
+        $stmt->execute();
+        $result = $stmt;
 
         // Check if there are events retrieved
         if ($result->rowCount() > 0) {
@@ -269,6 +275,7 @@ session_start()
                     <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
                         <div class="flex items-center justify-center">
                             <!-- Feedback button -->
+                            <input type="hidden" id="event_id" data-event_id="<?php echo $event['event_id']; ?>" style="color: red;" name="event_id" value="<?php echo $event['event_id']; ?>">
                             <button class="feedback-button mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
                                 Give Feedback
                             </button>
@@ -469,6 +476,7 @@ session_start()
     </footer>
     <script src="../js/home.js"></script>
     <script src="../js/rsvp.js"></script>
+    <script src="../js/feedback.js"></script>
     <script>
 
 var createEventModal = document.getElementById('createEvent');
@@ -502,18 +510,18 @@ function showCreateEvent() {
 }
 
 // Handle close button separately
-document.getElementById('cancelButton').addEventListener('click', () => {
+document.getElementById('cancelFeedbackButton').addEventListener('click', () => {
     var createEventMenu = document.getElementById('createEvent');
     createEventMenu.classList.add('hidden');
     // document.getElementById('mainContent').classList.remove('blur-background'); 
 });
 
-// // Handle the submit button separately
-// document.getElementById('submitFeedbackButton').addEventListener('click', () => {
-//     var createEventMenu = document.getElementById('createEvent');
-//     createEventMenu.classList.add('hidden');
-//     // document.getElementById('mainContent').classList.remove('blur-background'); 
-// });
+// Handle the submit button separately
+document.getElementById('submitFeedbackButton').addEventListener('click', () => {
+    var createEventMenu = document.getElementById('createEvent');
+    createEventMenu.classList.add('hidden');
+    // document.getElementById('mainContent').classList.remove('blur-background'); 
+});
 
 
   </script>
