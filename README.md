@@ -41,13 +41,6 @@ To use the Campus Event Scheduler landing page:
 - CSS3 (Tailwind CSS)
 - JavaScript
 
-## Credits:
-
-- **Team 4:** This project was created by Team 4.
-
-## License:
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
